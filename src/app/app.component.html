@@ -1,1 +1,26 @@
-<div class="container">TEST </div>
+<div [formGroup]="form" class="container">
+	<div class="mb-2">
+		<label for="name">Name</label>
+		<input type="text" id="name" formControlName="name" class="form-control" />
+	</div>
+
+	<div class="mb-2">
+		<label for="email">Email</label>
+		<input type="email" id="email" formControlName="email" class="form-control" />
+	</div>
+
+	<app-address-form formControlName="primaryAddress"></app-address-form>
+
+	@for (control of form.controls.otherAddresses.controls; track $index) {
+		<app-address-form [formControl]="control"></app-address-form>
+	}
+
+	<div class="btn-group">
+		<button class="btn btn-primary" (click)="addAddress()">Add Address</button>
+		<button class="btn btn-secondary" (click)="addPredefinedAddress()">
+			Add Predefined Address
+		</button>
+	</div>
+
+	<pre>{{ form.value | json }}</pre>
+</div>
